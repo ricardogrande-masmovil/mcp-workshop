@@ -4,10 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"image/gif"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
@@ -49,8 +47,7 @@ func weatherForecastHandler(ctx context.Context, request mcp.CallToolRequest) (*
 	latitude := arguments["Latitude"].(string)
 	longitude := arguments["Longitude"].(string)
 	time := arguments["Time"].(string)
-	
-	
+
 	// call to open-meteo API to get weather forecast
 	url := fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto", latitude, longitude)
 	resp, err := http.Get(url)
@@ -63,9 +60,9 @@ func weatherForecastHandler(ctx context.Context, request mcp.CallToolRequest) (*
 	}
 	var data struct {
 		Hourly struct {
-			Temperature     []float64 `json:"temperature_2m"`
+			Temperature      []float64 `json:"temperature_2m"`
 			RelativeHumidity []float64 `json:"relative_humidity_2m"`
-			WindSpeed       []float64 `json:"wind_speed_10m"`
+			WindSpeed        []float64 `json:"wind_speed_10m"`
 		} `json:"hourly"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
