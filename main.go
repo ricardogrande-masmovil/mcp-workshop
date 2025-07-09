@@ -2,21 +2,16 @@ package main
 
 import (
 	"context"
-	"log"
-	"time"
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
+	"image/gif"
+	"log"
+	"net/http"
+	"time"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
-
-type ForecastParams struct {
-	Latitude  string    `json:"latitude" mcp:"latitude"`
-	Longitude string    `json:"longitude" mcp:"longitude"`
-	Datetime  time.Time `json:"datetime" mcp:"datetime of the forecast"`
-}
 
 func main() {
 	mcpServer := server.NewMCPServer("weather", "0.0.1", server.WithToolCapabilities(true))
