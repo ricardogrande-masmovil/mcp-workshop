@@ -37,6 +37,8 @@ func main() {
 			os.Exit(1)
 		}
 		jumpToChapter(os.Args[2])
+	case "reset":
+		resetToMain()
 	case "help":
 		showHelp()
 	default:
@@ -245,6 +247,7 @@ func showHelp() {
 	fmt.Println("  workshop next                    - Move to next chapter")
 	fmt.Println("  workshop status                  - Show current status")
 	fmt.Println("  workshop jump <chapter-name>     - Jump to specific chapter")
+	fmt.Println("  workshop reset                   - Reset to main branch (start over)")
 	fmt.Println("  workshop help                    - Show this help")
 	fmt.Println()
 	fmt.Println("Available chapters:")
@@ -253,4 +256,44 @@ func showHelp() {
 	}
 	fmt.Println()
 	fmt.Println("Note: This tool will discard all uncommitted changes when switching chapters!")
+}
+
+func resetToMain() {
+	checkGitRepo()
+
+	currentBranch, err := getCurrentBranch()
+	if err != nil {
+		fmt.Printf("Error getting current branch: %v\n", err)
+		os.Exit(1)
+	}
+
+	if currentBranch == "main" {
+		fmt.Println("You're already on the main branch!")
+		return
+	}
+
+	fmt.Printf("Resetting workshop: Going back to main branch from %s\n", currentBranch)
+	fmt.Println()
+
+	// Discard all changes in current branch
+	fmt.Println("Discarding all changes in current branch...")
+	if err := runGitCommand("reset", "--hard", "HEAD"); err != nil {
+		fmt.Printf("Error resetting changes: %v\n", err)
+		os.Exit(1)
+	}
+	if err := runGitCommand("clean", "-fd"); err != nil {
+		fmt.Printf("Error cleaning files: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Switch back to main branch
+	fmt.Println("Switching to main branch...")
+	if err := runGitCommand("checkout", "main"); err != nil {
+		fmt.Printf("Error switching to main branch: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Println()
+	fmt.Printf("✅ Successfully reset to main branch\n")
+	fmt.Println("🎓 Ready to start the workshop from the beginning!")
 }

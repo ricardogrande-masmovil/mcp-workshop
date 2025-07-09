@@ -30,6 +30,9 @@ workshop status
 # Jump to a specific chapter
 workshop jump 002-mcp-weather-definition
 
+# Reset to main branch (start over)
+workshop reset
+
 # Show help
 workshop help
 ```
@@ -39,6 +42,7 @@ workshop help
 - `workshop next` - Move to the next chapter in the workshop sequence
 - `workshop status` - Show current branch and progress through the workshop
 - `workshop jump <chapter-name>` - Jump directly to a specific chapter
+- `workshop reset` - Reset to main branch and start over from the beginning
 - `workshop help` - Display help information
 
 ## Workshop Chapters
@@ -63,4 +67,5 @@ If you were previously using `./workshop.sh`, you can now use the Go binary inst
 - `./workshop.sh next` → `workshop next`
 - `./workshop.sh status` → `workshop status`
 - `./workshop.sh jump <chapter>` → `workshop jump <chapter>`
+- `./workshop.sh reset` → `workshop reset`
 - `./workshop.sh help` → `workshop help`
