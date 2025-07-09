@@ -1,7 +1,70 @@
 {
     "servers": {
-        "weather-forecast": {
-            "url": "http://localhost:8080/mcp"
+        "github": {
+            "url": "https://api.githubcopilot.com/mcp/"
+        },
+        "atlassian": {
+          "type": "http",
+          "url": "https://mcp.atlassian.com/v1/sse"
+        },
+        "legacy-atlassian": {
+            "command": "docker",
+            "args": [
+                "run",
+                "--rm",
+                "-i",
+                "-e", "JIRA_URL",
+                "-e", "JIRA_PERSONAL_TOKEN",
+                "-e", "JIRA_SSL_VERIFY",
+                "ghcr.io/sooperset/mcp-atlassian:latest"
+            ],
+            "env": {
+                "JIRA_URL": "https://jiranext.masorange.es",
+                "JIRA_PERSONAL_TOKEN": "${input:jira_mcp_pat}",
+                "JIRA_SSL_VERIFY": "false"
+            }
+        },
+        "postgres": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres",
+                "postgresql://${input:pg_user}:${input:pg_password}@${input:pg_host}:${input:pg_port}/${input:pg_database}",
+            ]
         }
-    }
+    },
+    "inputs": [
+        {
+            "id": "jira_mcp_pat",
+            "type": "promptString",
+            "description": "Enter your JIRA Personal Access Token for MCP integration",
+            "password": true
+        },
+        {
+            "type": "promptString",
+            "id": "pg_user",
+            "description": "PostgreSQL User"
+        },
+        {
+            "type": "promptString",
+            "id": "pg_password",
+            "description": "PostgreSQL Password",
+            "password": true
+        },
+        {
+            "type": "promptString",
+            "id": "pg_host",
+            "description": "PostgreSQL Host (e.g. localhost)"
+        },
+        {
+            "type": "promptString",
+            "id": "pg_port",
+            "description": "PostgreSQL Port (e.g. 5432)"
+        },
+        {
+            "type": "promptString",
+            "id": "pg_database",
+            "description": "PostgreSQL Database Name"
+        }
+    ],
 }
