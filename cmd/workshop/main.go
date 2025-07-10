@@ -143,7 +143,7 @@ func moveToNext() {
 
 	fmt.Println()
 	fmt.Printf("✅ Successfully moved to chapter: %s\n", nextBranch)
-	fmt.Printf("Progress: %d/%d\n", nextPos+1, len(order))
+	fmt.Printf("Progress: %d/%d\n", nextPos, len(order)-1)
 }
 
 func showStatus() {
