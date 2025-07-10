@@ -1,3 +1,7 @@
+# How to configure MCPs in VSCode
+
+The best way to understand all configuration possibilities is to read [the docs](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)! 
+
 # Some interesting MCPs
 
 ## Github official MCP
