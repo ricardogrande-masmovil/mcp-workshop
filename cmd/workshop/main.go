@@ -10,11 +10,11 @@ import (
 // Workshop chapters order
 var order = []string{
 	"main",
-	"001-initial-setup",
-	"002-mcp-weather-definition",
-	"002-mcp-weather-complete",
-	"003-mcp-zoo",
-	"003-mcp-zoo-complete",
+	"initial-setup",
+	"mcp-zoo",
+	"mcp-zoo-complete",
+	"mcp-weather-definition",
+	"mcp-weather-complete",
 }
 
 func main() {
